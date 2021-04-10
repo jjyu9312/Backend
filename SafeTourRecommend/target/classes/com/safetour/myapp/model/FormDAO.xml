@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.safetour.myapp.model.FormDAO">
+<!-- 	<select id='getLabelList' parameterType='String' resultType='LabelDTO'> -->
+<!-- 	SELECT DISTINCT tour_db.t_label.place, -->
+<!-- 					tour_db.t_label.label, -->
+<!-- 					tour_db.t_label.score -->
+<!--     FROM tour_db.t_label -->
+<!--     INNER JOIN A ON -->
+<!--     A.title = tour_db.t_label.place -->
+<!--       WHERE A.tag LIKE '%' || #{theme} || '%' AND -->
+<!--             A.tag LIKE '%' || #{partner} || '%' order by RAND() LIMIT 12 -->
+<!-- 	</select> -->
+	<select id="getTourList_m" parameterType="String" resultType="TourDAO">
+	SELECT tour_db.t_coordinate.title,
+       		tour_db.t_coordinate.address,
+       		tour_db.t_coordinate.x,
+       		tour_db.t_coordinate.y,
+       		tour_db.t_coordinate.image
+		FROM tour_db.t_coordinate INNER JOIN  tour_db.t_tag_select ON
+    		tour_db.t_coordinate.title = tour_db.t_tag_select.title
+		WHERE tour_db.t_tag_select.Tag LIKE #{theme} 
+			AND	tour_db.t_tag_select.Tag = #{partner}
+   			OR tour_db.t_tag_select.Tag = #{label}
+   			OR tour_db.t_tag_select.Tag = #{label_2}
+   			OR tour_db.t_tag_select.Tag = #{label_3}
+   			OR tour_db.t_tag_select.Tag = #{label_4}
+   			OR tour_db.t_tag_select.Tag = #{label_5}
+			OR tour_db.t_tag_select.Tag = #{label_6}
+			OR tour_db.t_tag_select.Tag = #{label_7}
+			OR tour_db.t_tag_select.Tag = #{label_8}
+			OR tour_db.t_tag_select.Tag = #{label_9}
+			OR tour_db.t_tag_select.Tag = #{label_10}
+			OR tour_db.t_tag_select.Tag = #{label_11}
+			OR tour_db.t_tag_select.Tag = #{label_12}
+		group by tour_db.t_tag_select.Title
+		ORDER BY SUM( IF(tour_db.t_tag_select.Tag LIKE #{theme}, 40, 0) +
+            IF(tour_db.t_tag_select.Tag = #{partner}, 10, 0) +
+            IF(tour_db.t_tag_select.Tag=#{label}, 10, 0)  +
+           	IF(tour_db.t_tag_select.Tag=#{label_2}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_3}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_4}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_5}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_6}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_7}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_8}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_9}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_10}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_11}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_12}, 5, 0)) 
+			DESC LIMIT 5
+	</select>
+	
+	<select id="getTourList_o" parameterType="String" resultType="TourDAO">
+	SELECT tour_db.t_coordinate.title,
+       		tour_db.t_coordinate.address,
+       		tour_db.t_coordinate.x,
+       		tour_db.t_coordinate.y,
+       		tour_db.t_coordinate.image
+		FROM tour_db.t_coordinate INNER JOIN  tour_db.t_tag_select ON
+    		tour_db.t_coordinate.title = tour_db.t_tag_select.title
+		WHERE tour_db.t_tag_select.Tag = #{theme}
+			AND tour_db.t_tag_select.Tag = #{partner}
+   			OR tour_db.t_tag_select.Tag = #{label}
+   			OR tour_db.t_tag_select.Tag = #{label_2}
+   			OR tour_db.t_tag_select.Tag = #{label_3}
+   			OR tour_db.t_tag_select.Tag = #{label_4}
+   			OR tour_db.t_tag_select.Tag = #{label_5}
+			OR tour_db.t_tag_select.Tag = #{label_6}
+			OR tour_db.t_tag_select.Tag = #{label_7}
+			OR tour_db.t_tag_select.Tag = #{label_8}
+			OR tour_db.t_tag_select.Tag = #{label_9}
+			OR tour_db.t_tag_select.Tag = #{label_10}
+			OR tour_db.t_tag_select.Tag = #{label_11}
+			OR tour_db.t_tag_select.Tag = #{label_12}
+		group by tour_db.t_tag_select.Title
+		ORDER BY SUM( IF(tour_db.t_tag_select.Tag = #{theme}, 40, 0) +
+            IF(tour_db.t_tag_select.Tag=#{partner}, 10, 0) +
+ 			IF(tour_db.t_tag_select.Tag=#{label}, 10, 0)  +
+  			IF(tour_db.t_tag_select.Tag=#{label_2}, 5, 0) +
+  			IF(tour_db.t_tag_select.Tag=#{label_3}, 5, 0) +
+  			IF(tour_db.t_tag_select.Tag=#{label_4}, 5, 0) +
+  			IF(tour_db.t_tag_select.Tag=#{label_5}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_6}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_7}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_8}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_9}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_10}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_11}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_12}, 5, 0)) 
+			DESC LIMIT 5	
+	</select>
+	
+	<select id="getTourList_l" parameterType="String" resultType="TourDAO">
+	SELECT tour_db.t_coordinate.title,
+       		tour_db.t_coordinate.address,
+       		tour_db.t_coordinate.x,
+       		tour_db.t_coordinate.y,
+       		tour_db.t_coordinate.image
+		FROM tour_db.t_coordinate INNER JOIN  tour_db.t_tag_select ON
+    		tour_db.t_coordinate.title = tour_db.t_tag_select.title
+		WHERE tour_db.t_tag_select.Tag LIKE #{theme}
+			AND tour_db.t_tag_select.Tag = #{partner}
+   			OR tour_db.t_tag_select.Tag LIKE #{label}
+   			OR tour_db.t_tag_select.Tag LIKE #{label_2}
+   			OR tour_db.t_tag_select.Tag LIKE #{label_3}
+   			OR tour_db.t_tag_select.Tag LIKE #{label_4}
+   			OR tour_db.t_tag_select.Tag LIKE #{label_5}
+			OR tour_db.t_tag_select.Tag LIKE #{label_6}
+			OR tour_db.t_tag_select.Tag LIKE #{label_7}
+			OR tour_db.t_tag_select.Tag LIKE #{label_8}
+			OR tour_db.t_tag_select.Tag LIKE #{label_9}
+			OR tour_db.t_tag_select.Tag LIKE #{label_10}
+			OR tour_db.t_tag_select.Tag LIKE #{label_11}
+			OR tour_db.t_tag_select.Tag LIKE #{label_12}
+		group by tour_db.t_tag_select.Title
+		ORDER BY SUM( IF(tour_db.t_tag_select.Tag LIKE #{theme}, 40, 0) +
+            IF(tour_db.t_tag_select.Tag=#{partner}, 10, 0) +
+            IF(tour_db.t_tag_select.Tag LIKE #{label}, 10, 0)  +
+           	IF(tour_db.t_tag_select.Tag LIKE #{label_2}, 5, 0) +
+          	IF(tour_db.t_tag_select.Tag LIKE #{label_3}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag LIKE #{label_4}, 5, 0) +
+          	IF(tour_db.t_tag_select.Tag LIKE #{label_5}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_6}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_7}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_8}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_9}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_10}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_11}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag LIKE #{label_12}, 5, 0)) 
+			DESC LIMIT 5
+	
+	</select>
+	
+	<select id="getTourList_c" parameterType="String" resultType="TourDAO">
+	SELECT tour_db.t_coordinate.title,
+       		tour_db.t_coordinate.address,
+       		tour_db.t_coordinate.x,
+       		tour_db.t_coordinate.y,
+       		tour_db.t_coordinate.image
+		FROM tour_db.t_coordinate INNER JOIN  tour_db.t_tag_select ON
+    		tour_db.t_coordinate.title = tour_db.t_tag_select.title
+		WHERE tour_db.t_tag_select.Tag LIKE #{theme}
+			AND tour_db.t_tag_select.Tag = #{partner}
+   			OR tour_db.t_tag_select.Tag = #{label}
+   			OR tour_db.t_tag_select.Tag = #{label_2}
+   			OR tour_db.t_tag_select.Tag = #{label_3}
+   			OR tour_db.t_tag_select.Tag = #{label_4}
+   			OR tour_db.t_tag_select.Tag = #{label_5}
+			OR tour_db.t_tag_select.Tag = #{label_6}
+			OR tour_db.t_tag_select.Tag = #{label_7}
+			OR tour_db.t_tag_select.Tag = #{label_8}
+			OR tour_db.t_tag_select.Tag = #{label_9}
+			OR tour_db.t_tag_select.Tag = #{label_10}
+			OR tour_db.t_tag_select.Tag = #{label_11}
+			OR tour_db.t_tag_select.Tag = #{label_12}
+		group by tour_db.t_tag_select.Title
+		ORDER BY SUM( IF(tour_db.t_tag_select.Tag LIKE #{theme}, 40, 0) +
+            IF(tour_db.t_tag_select.Tag=#{partner}, 10, 0) +
+            IF(tour_db.t_tag_select.Tag=#{label}, 10, 0)  +
+           	IF(tour_db.t_tag_select.Tag=#{label_2}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_3}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_4}, 5, 0) +
+           	IF(tour_db.t_tag_select.Tag=#{label_5}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_6}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_7}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_8}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_9}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_10}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_11}, 5, 0)+
+			IF(tour_db.t_tag_select.Tag=#{label_12}, 5, 0)) 
+			DESC LIMIT 5
+	</select>
+</mapper>
